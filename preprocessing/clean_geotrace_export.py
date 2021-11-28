@@ -2,7 +2,10 @@
 #
 # clean_geotrace_export.py
 
-"""clean_geotrace_export.py  last modified 2021-11-25
+"""clean_geotrace_export.py  last modified 2021-11-28
+
+    using datasets from GEOTRACES:
+    https://geotraces.webodv.awi.de/
 
 ./clean_geotrace_export.py IDP2021_GEOTRACES_IDP2021_Seawater_Discrete_Sample_Data_v1_WUEpD6wK.txt > GEOTRACES_IDP2021_Seawater_Discrete_Sample_v1_WUEpD6wK.clean.txt
 
@@ -13,6 +16,7 @@ import sys
 import time
 
 DEBUG = False
+REMOVE_QV = True
 
 if len(sys.argv) < 2:
 	sys.exit(__doc__)
@@ -25,6 +29,7 @@ else:
 	found_header = False
 	col_to_header = {} # key is col number, value is name of header 
 	count_by_column = {} # key is col number, value is count of number of non-NA cells
+	qv_cols = {} # key is col number, val is True
 
 	geotrace_file = sys.argv[1]
 
@@ -37,27 +42,39 @@ else:
 		if line.find("//")==0:
 			removecounter += 1
 			continue
+		
+		subsplits = []
+		
 		if found_header is False:
 			if line.find("Cruise")==0: # this is the header line
 				found_header = True
 				lsplits = line.strip().split("\t")
 				for i, item in enumerate(lsplits): # get column headers
 					col_to_header[i] = item
+					if item=="QV:SEADATANET" or item=="STANDARD_DEV":
+						qv_cols[i] = True
+						if REMOVE_QV:
+							continue					
+					subsplits.append(item)
 		else:
 			lsplits = line.strip().split("\t")
 			for i, item in enumerate(lsplits):
 				if item and item!="9": # 9 is flag for no data for QV:SEADATANET columns
 					count_by_column[i] = count_by_column.get(i,0) + 1
+				if REMOVE_QV and i in qv_cols:
+					continue
+				subsplits.append(item)
 
 		# change:
 		# Operator's Cruise Name   to   Operators
 		# TMR#4  to  TMR_4
-		#  [umol/kg]  to  _umol_kg
+		#  [umol/kg]  to  _umol/kg
 		#
-		outline = line.replace("'","").replace("#","_").replace(" [","_").replace("]","")
+		outline_merge = "{}\n".format( "\t".join(subsplits) )
+		outline = outline_merge.replace("'","").replace("#","_").replace(" [","_").replace("]","")
 		sys.stdout.write(outline)
 
-	sys.stderr.write("# Counted {} lines with {} columns, removed {} lines  {}\n".format( linecounter, len(col_to_header), removecounter, time.asctime() ) )
+	sys.stderr.write("# Counted {} lines with {} columns, removed {} lines, kept {} columns  {}\n".format( linecounter, len(col_to_header), removecounter, len(subsplits), time.asctime() ) )
 
 	if DEBUG==True:
 		for i, n in sorted(count_by_column.items(), key=lambda x: x[1], reverse=True):
