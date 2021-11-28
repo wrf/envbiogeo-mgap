@@ -130,7 +130,7 @@ plot(geotrace_tm$CTDSAL_D_CONC_SENSOR_pss.78, geotrace_tm$SALINITY_D_CONC_BOTTLE
 * `xlim=c(20,40), ylim=c(20,40),` specify the limits of the x and y axes, with 2 numbers inside of a vector `c()`
 * `frame.plot=FALSE` removes the black square border around the whole plot
 * `pch=16` changes the point to solid circles, instead of rings. There are 25 symbol options in base R.
-* `col="#db6a0044"` sets the color of the points to orange, as defined by hex values of red-green-blue, `"#RRGGBB"` where each `RR` `GG` and `BB` can take a value from 0 to 255, as 2 hexadecimal values. `#00` is zero, `#ff` is 255. In base R, the 7th and 8th positions can be used to define the **alpha**, which is the transparency, and here `44` would be 25%, meaning 75% transparent.
+* `col="#db6a0044"` sets the color of the points to orange, as defined by hex values of red-green-blue, `"#RRGGBB"` where each `RR` `GG` and `BB` can take a value from 0 to 255, as 2 hexadecimal values. `#00` is zero, `#ff` is 255. In base R, the 7th and 8th positions can be used to define the **alpha**, which is the transparency, and here `44` would be 25%, meaning 75% transparent. We also could define the colors by name, using the [CSS colors](https://www.w3docs.com/learn-css/css-color-names.html). That could be written as `col="DarkOrange"` with the name in quotes, but no `#` symbol.
 * `cex=2` "character expansion" changes the size of the points, 1 is default, so numbers larger than 1 makes the points larger
 * `xlab="CTD Salinity (0/00)", ylab="Bottle Salinity (0/00)"` changes the axis labels, units of salinity are g/kg, meaning per mille (0/00)
 * `cex.lab=1.4` changes the size of the labels
@@ -149,7 +149,7 @@ ggplot(geotrace_tm, aes(x=CTDSAL_D_CONC_SENSOR_pss.78, y=SALINITY_D_CONC_BOTTLE)
 
 ![IDP2021_ctd_salinity_vs_bottle_ggplot.png](https://github.com/wrf/envbiogeo-mgap/blob/main/images/IDP2021_ctd_salinity_vs_bottle_ggplot.png)
 
-While in many ways, base plot is simpler and easier to use, there are some limitations. Suppose we want to plot temperature traces by depth, and show each trace for each cast as a line. We can set the plot mode to `type="l"` meaning draw lines instead of points.
+While in many ways, base plot is simpler and easier to use, there are some limitations. Suppose we want to plot temperature traces by depth, and show each trace for each cast as a line. We can set the plot mode to `type="l"` meaning draw lines instead of points. We also set the y-limits to `c(6000,0)`, which will draw the axis as reversed, so the surface of the ocean will appear at the top of the plot.
 
 ```
 plot( geotrace_tm$CTDTMP_T_VALUE_SENSOR_deg.C, geotrace_tm$DEPTH_m, type="l",
@@ -158,7 +158,7 @@ plot( geotrace_tm$CTDTMP_T_VALUE_SENSOR_deg.C, geotrace_tm$DEPTH_m, type="l",
 
 ![IDP2021_temp_vs_depth_baseR.png](https://github.com/wrf/envbiogeo-mgap/blob/main/images/IDP2021_temp_vs_depth_baseR.png)
 
-...but this gives a huge mess that could belong in a modern art museum. It treats the whole dataset as one continuous line, so individual traces are not clear. We instead want ~5000 separate lines for the ~5000 casts. This is fairly easy with `ggplot()`, making use of the `group=` aesthetic attribute.
+...but this gives a huge mess that could belong in a modern art museum. It treats the whole dataset as one continuous line, so individual traces are not clear. We instead want ~5000 separate lines for the ~5000 casts. This is fairly easy with `ggplot()`, making use of the `group=` aesthetic attribute. This means that lines will be grouped by some factor, here we are using the `Cast.Identifier` in the dataset, a unique value for each cast/series of samples. Just as above, we also invert the y-axis by adding `scale_y_reverse()`.
 
 ```
 ggplot(geotrace_tm, aes(x=CTDTMP_T_VALUE_SENSOR_deg.C , y=DEPTH_m , group=Cast.Identifier)) +
@@ -166,7 +166,7 @@ ggplot(geotrace_tm, aes(x=CTDTMP_T_VALUE_SENSOR_deg.C , y=DEPTH_m , group=Cast.I
   geom_line( color="#77223a" , alpha=0.05, size=1)
 ```
 
-Because we are drawing a lot of lines, they would normally overshadow each other a lot, so we want to set the alpha very low, here using `0.05`. Any given line is almost transparent, but we can see the general trends very well.
+Because we are drawing a lot of lines, they would normally overshadow each other a lot, so we want to set the alpha very low, here using `0.05`. Any given line is almost transparent, but we can see the general trends very well, such as the overall temperature of the ocean.
 
 ![IDP2021_temp_vs_depth_ggplot.png](https://github.com/wrf/envbiogeo-mgap/blob/main/images/IDP2021_temp_vs_depth_ggplot.png)
 
@@ -190,7 +190,7 @@ oxygl
 ![IDP2021_depth_vs_oxygen_ggplot.png](https://github.com/wrf/envbiogeo-mgap/blob/main/images/IDP2021_depth_vs_oxygen_ggplot.png)
 
 ### Examining distribution of aluminium ###
-The first element in the table is aluminium (alphabetically).
+The first element in the table is aluminium (alphabetically, not atomic number or abundance of samples). We can plot this against depth, just as above.
 
 ```
 dg = ggplot(geotrace_tm, aes(x=Al_D_CONC_BOTTLE_nmol.kg , y=DEPTH_m ) ) +
@@ -210,7 +210,9 @@ aldg = ggplot(geotrace_tm, aes(x=Al_D_CONC_BOTTLE_nmol.kg , y=DEPTH_m ) ) +
 aldg
 ```
 
-![IDP2021_depth_vs_oxygen_ggplot.png](https://github.com/wrf/envbiogeo-mgap/blob/main/images/IDP2021_depth_vs_oxygen_ggplot.png)
+![IDP2021_aluminium_depth_w_red.png](https://github.com/wrf/envbiogeo-mgap/blob/main/images/IDP2021_aluminium_depth_w_red.png)
+
+Where are these samples? We can examine this by checking and filtering the table, or graphically by plotting them onto a map. For instance, we can combine the two functions `filter()` and `summary()`.
 
 ### Making a global map ###
 Suppose we now want to highlight those red points on a map, to know where they occur on the planet. We will need to first make some adjustments to the data. If we check the range of the latitude and longitude, we can see that latitude runs from the south pole to north pole, but longitude is defined starting at 0 and going to 360. In R, the default maps define longitude as -180 to +180, so we need to adjust all the points from 180 to 360 into values of -180 to 0.
@@ -247,7 +249,8 @@ gt_gg
 ggsave(file="~/project/oceanography/geotraces/geotraces_2021_aluminium_map_w_red.pdf", gt_gg, device="pdf", width=12, height=6)
 ```
 
-![IDP2021_depth_vs_oxygen_ggplot.png](https://github.com/wrf/envbiogeo-mgap/blob/main/images/IDP2021_depth_vs_oxygen_ggplot.png)
+![IDP2021_aluminium_map_w_red.png](https://github.com/wrf/envbiogeo-mgap/blob/main/images/IDP2021_aluminium_map_w_red.png)
+
 
 We can see that the high-aluminium samples are entirely within the Mediterranean. Why could that be? again, consult the literature to see if this is known, check the review by [Bruland 2003](https://doi.org/10.1016/B0-08-043751-6/06105-3).
 
