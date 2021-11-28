@@ -1,2 +1,36 @@
-# envbiogeo-mgap
-information and code for course projects for the biogeochemical cycles class 2021
+# Global Cycles 2021 #
+information and code for course projects for the [biogeochemical cycles class](https://www.mgap.geo.uni-muenchen.de/index.html) in 2021
+
+## Using the GEOTRACES database ##
+We will make use of recently collected data from the [GEOTRACES](https://www.geotraces.org/) database (part of [SCOR](https://scor-int.org/scor/about/)), which collects data on marine trace metal concentrations from around the world. The cruise tracks can be viewed [here](https://www.egeotraces.org/).
+
+The basic dataset we will be using for the course consists of ~90k samples. [CTD data](https://oceanexplorer.noaa.gov/technology/ctd/ctd.html) are available for most samples, while the trace metals in the set have around 1k to 10k samples. These data were minimally processed for use in R, only by changing some symbols to allow smooth importing. The raw data can be downloaded at the [webODV website](https://geotraces.webodv.awi.de/) if necessary.
+
+Some [publications and reviews have already bene generated](https://royalsocietypublishing.org/toc/rsta/374/2081) using the GEOTRACES datasets.
+
+We are not restricted to GEOTRACES. Other datasets would be allowed for comparisons, such as the [NOAA World Ocean Database dataset](https://www.ncei.noaa.gov/access/world-ocean-database-select/dbsearch.html) (better for longer timeseries studies), or the [Integrated Ocean Drilling Program](https://www.iodp.org/resources/access-data-and-samples) datasets.
+
+## Setting up R ##
+For the analysis portion, we will be using the programming/statistics [language R](https://en.wikipedia.org/wiki/R_(programming_language)).
+
+It is probably best to use a development environment like [RStudio](https://www.rstudio.com/). R-base (files of the programming language) must be installed on your system first. If you *have* used R before, and have a preferred working environment, you can of course use that instead.
+
+RStudio can be [downloaded here](https://www.rstudio.com/products/rstudio/download/) (get the Desktop version), and Rbase can be [downloaded here](https://cran.rstudio.com/), for MacOS, Windows, or Linux.
+
+We will make frequent use of two supplemental packages: [dplyr](https://dplyr.tidyverse.org/) for data management/organization, and [ggplot](https://ggplot2.tidyverse.org/) for mapping/plotting. These can be installed from the `Tools` -> `Install Packages...` menus in RStudio. The usage of those two packages differs substantially from standard R, and it may seem like it is almost another language.
+
+## Analysis of GEOTRACES in R ##
+If you have never used R or any other programming language, you should probably first watch this [tutorial](https://www.rstudio.com/resources/webinars/a-gentle-introduction-to-tidy-statistics-in-r/) about using RStudio.
+
+The basic dataset can be downloaded [here](https://bitbucket.org/wrf/datasets/downloads/GEOTRACES_IDP2021_Seawater_Discrete_Sample_Data_v1_nfYzzsKg.clean.zip). This includes sample metadata, nutrients, trace metals, radionuclides, and dissolved rare earth elements.
+
+
+### Intro or Discussion ###
+For the discussion about the nutrient or metal, consider trying to answer some of the following questions:
+
+* is it evenly distributed around the world? do some ocean basins have more or less?
+* is it constant with depth? does it have a conservative, nutrient, or scavenged profile? see review by [Bruland 2003](https://doi.org/10.1016/B0-08-043751-6/06105-3)
+* do organisms use this substance, say for enzymes? which enzymes, and which biological processes? (check [KEGG](https://www.kegg.jp/kegg/kegg2.html) or [Uniprot DB](https://www.uniprot.org/)
+* are there natural sources, say from volcanoes or rivers? how much does this contribute?
+* are there human sources, say from industrial processes? which ones? what do they make? is that region well known for that industry? does this industry cause other problems?
+
