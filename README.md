@@ -24,13 +24,14 @@ If you have never used R or any other programming language, you should probably 
 
 The basic dataset can be downloaded [here](https://bitbucket.org/wrf/datasets/downloads/GEOTRACES_IDP2021_Seawater_Discrete_Sample_Data_v1_nfYzzsKg.clean.zip). This includes sample metadata, nutrients, trace metals, radionuclides, and dissolved rare earth elements.
 
+We will be starting with the sort of analyses in this [tutorial](https://github.com/wrf/envbiogeo-mgap/tree/main/analysis_tutorial).
 
 ### Intro or Discussion ###
 For the discussion about the nutrient or metal, consider trying to answer some of the following questions:
 
 * is it evenly distributed around the world? do some ocean basins have more or less?
 * is it constant with depth? does it have a conservative, nutrient, or scavenged profile? see review by [Bruland 2003](https://doi.org/10.1016/B0-08-043751-6/06105-3)
-* do organisms use this substance, say for enzymes? which enzymes, and which biological processes? (check [KEGG](https://www.kegg.jp/kegg/kegg2.html) or [Uniprot DB](https://www.uniprot.org/)
+* do organisms use this substance, say for enzymes? which enzymes, and which biological processes? check [KEGG](https://www.kegg.jp/kegg/kegg2.html) or [Uniprot DB](https://www.uniprot.org/)
 * are there natural sources, say from volcanoes or rivers? how much does this contribute?
 * are there human sources, say from industrial processes? which ones? what do they make? is that region well known for that industry? does this industry cause other problems?
 
