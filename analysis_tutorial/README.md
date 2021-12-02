@@ -3,7 +3,9 @@ Using data from the [GEOTRACES](https://www.geotraces.org/) database
 
 It is advisable to first watch this [tutorial](https://www.rstudio.com/resources/webinars/a-gentle-introduction-to-tidy-statistics-in-r/) about using RStudio.
 
-There are some handy references of commands for [base-R](https://raw.githubusercontent.com/rstudio/cheatsheets/master/base-r.pdf), [dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-transformation.pdf), and [ggplot](https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-visualization.pdf)
+There are some handy references of commands for [base-R](https://raw.githubusercontent.com/rstudio/cheatsheets/master/base-r.pdf), [dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-transformation.pdf), and [ggplot](https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-visualization.pdf).
+
+For more details about statistics in R, see [learning statistics with R](https://learningstatisticswithr.com/), and another good place to start would be Chapter 3 of that book (free as a pdf). **IF YOU HAVE NEVER USED R OR ANY OTHER PROGRAMMING LANGUAGE, PLEASE READ CHAPTER 3, AND FOLLOW ALONG WITH RSTUDIO**.
 
 ### Getting started ###
 R can run from the default starting directory, or can be changed to run and find files out of any given folder. You can see where the starting directory is (or current one, if changed) using the `getwd()` function.
@@ -27,10 +29,10 @@ library(dplyr)
 ### Importing the data ###
 The dataset is a large table of around 90k rows and 318 columns, which can be downloaded [here](https://bitbucket.org/wrf/datasets/downloads/GEOTRACES_IDP2021_Seawater_Discrete_Sample_Data_v1_nfYzzsKg.clean.zip). This needs to be unzipped first.
 
-We can then load this table into R for processing with the `read.table()` function. Two other options are specified, `head=TRUE`, meaning that the first line contains the column names, and `sep="\t"`, meaning that tabs are the separators (as opposed to commas, or something else).
+We can then load this table into R for processing with the `read.table()` function. Firstly, we specify what file to read in, by giving the path to that file (wherever it is on your computer). Two other options are specified, `head=TRUE`, meaning that the first line contains the column names, and `sep="\t"`, meaning that tabs are the separators (as opposed to commas, or something else).
 
 ```
-geotrace_tm_file = "~/project/oceanography/geotraces/GEOTRACES_IDP2021_Seawater_Discrete_Sample_v1_WUEpD6wK.clean.txt"
+geotrace_tm_file = "~/git/envbiogeo-mgap/datasets/GEOTRACES_IDP2021_Seawater_Discrete_Sample_Data_v1_nfYzzsKg.clean.txt"
 geotrace_tm = read.table(geotrace_tm_file, head=TRUE, sep="\t")
 ```
 
@@ -65,7 +67,7 @@ To see the column names, which we will later use to subset and analyze the table
 
 We can get quick summaries from several functions.
 
-For text columns, such as `$Chief.Scientist` or `$Ship.Name`, we can use the `unique()` function to just a vector with no duplicated entries. The order will be the order that they are encountered in the dataset.
+For text columns, such as `$Chief.Scientist` or `$Ship.Name`, we can use the `unique()` function to give a vector with no duplicated entries. The order will be the order that they are encountered in the dataset.
 
 ```
 > unique( geotrace_tm$Chief.Scientist )
@@ -101,8 +103,10 @@ For numerical columns, we instead can get a quick summary using the `hist()` plo
 
 We could use `hist()` for any of the nutrients or trace metals as well.
 
+Other useful functions include `head()` which gives the first 6 items or rows of a dataset, `summary()` which gives summary statistics (min/max/mean) for each column in a dataset, or `glimpse()` which prints the first columns for each row (from the `dplyr` package).
+
 ### Graphing points and lines ###
-Suppose we want to check if the CTD sensor of salinity and the measured Niskin bottle salinity are the same.
+Suppose we want to check if the CTD sensor of salinity and the measured [Niskin bottle](https://en.wikipedia.org/wiki/Nansen_bottle) salinity are the same.
 
 Using R base graphics, we can make use of the `plot()` function to draw scatter plots, as well as many other plot types.
 
@@ -211,6 +215,19 @@ aldg
 ```
 
 ![IDP2021_aluminium_depth_w_red.png](https://github.com/wrf/envbiogeo-mgap/blob/main/images/IDP2021_aluminium_depth_w_red.png)
+
+To specify the color of points and make a new column, we use the `mutate()` function in `dplyr`. A few additional lines are needed such as defining the colors with `scale_color_manual( values=c("#8888aa","#ee0000" ) )` and removing the automatic legend with `theme(legend.position = "none")`.
+
+```
+aldg = geotrace_tm %>%
+  mutate(concgrp = (Al_D_CONC_BOTTLE_nmol.kg > 100) ) %>%
+  ggplot( aes(x=Al_D_CONC_BOTTLE_nmol.kg , y=DEPTH_m , color=concgrp ) ) +
+  scale_y_reverse(limits=c(6000,0)) +
+  scale_color_manual( values=c("#8888aa","#ee0000" ) ) +
+  theme(legend.position = "none") +
+  geom_point( alpha=0.3, size=4)
+aldg
+```
 
 Where are these samples? We can examine this by checking and filtering the table, or graphically by plotting them onto a map. For instance, we can combine the two functions `filter()` and `summary()`.
 
