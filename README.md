@@ -26,7 +26,7 @@ RStudio can be [downloaded here](https://www.rstudio.com/products/rstudio/downlo
 
 For an overview tutorial about RStudio and R, first watch this [tutorial](https://www.rstudio.com/resources/webinars/a-gentle-introduction-to-tidy-statistics-in-r/) about using RStudio.
 
-For more details about statistics in R, see [learning statistics with R](https://learningstatisticswithr.com/), and another good place to start would be Chapter 3 of that book (free as a pdf). **IF YOU HAVE NEVER USED R OR ANY OTHER PROGRAMMING LANGUAGE, PLEASE READ CHAPTER 3, AND FOLLOW ALONG WITH RSTUDIO**.
+For more details about statistics in R, see [learning statistics with R](https://learningstatisticswithr.com/), and another good place to start would be Chapter 3 of that book (free as a pdf). **IF YOU HAVE NEVER USED R OR ANY OTHER PROGRAMMING LANGUAGE, PLEASE READ CHAPTER 3, AND FOLLOW ALONG WITH RSTUDIO**. Note: this is *Chapter 3: Getting started with R* **NOT** *Section III Working with data*.
 
 We will make frequent use of two supplemental packages: [dplyr](https://dplyr.tidyverse.org/) for data management/organization, and [ggplot](https://ggplot2.tidyverse.org/) for mapping/plotting. These can be installed from the `Tools` -> `Install Packages...` menus in RStudio. The usage of those two packages differs substantially from standard R, and it may seem like it is almost another language.
 
