@@ -6,7 +6,19 @@ The project will consist of:
 * 8-10 page report featuring primary analysis about a nutrient/element of choice (at least one, or combinations for rarer ones) from the GEOTRACES database
 * include an introduction, brief methods, results/description of observations, discussion, figures (roughly 1 page of combined figures) and references
 * can be a global overview, or detailed about a location of interest; this can be determined after beginning to look at the data
-* short presentation (1-3 slides, 5 min + questions) for the final day of class
+* short overview presentation/discussion (1-3 slides, 5 min + questions) for the final day of class, possibly not very formal
+
+The following items can be used by all for comparison:
+
+```
+CTDPRS_T_VALUE_SENSOR_dbar       CTDTMP_T_VALUE_SENSOR_deg.C
+CTDSAL_D_CONC_SENSOR_pss.78      SALINITY_D_CONC_BOTTLE
+OXYGEN_D_CONC_BOTTLE_umol.kg     CTDOXY_D_CONC_SENSOR_umol.kg
+PHOSPHATE_D_CONC_BOTTLE_umol.kg  SILICATE_D_CONC_BOTTLE_umol.kg
+NITRATE_D_CONC_BOTTLE_umol.kg    NITRITE_D_CONC_BOTTLE_umol.kg
+PH_TOT_BOTTLE                    TALK_D_CONC_BOTTLE_umol
+DIC_D_CONC_BOTTLE_umol
+```
 
 ## Using the GEOTRACES database ##
 We will make use of recently collected data from the [GEOTRACES](https://www.geotraces.org/) database (part of [SCOR](https://scor-int.org/scor/about/)), which collects data on marine trace metal concentrations from around the world. The cruise tracks can be viewed [here](https://www.egeotraces.org/).
