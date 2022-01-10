@@ -1,6 +1,8 @@
 # Analysis of GEOTRACES in R #
 Using data from the [GEOTRACES](https://www.geotraces.org/) database
 
+[**DOWNLOAD DATA HERE**](https://bitbucket.org/wrf/datasets/downloads/GEOTRACES_IDP2021_Seawater_Discrete_Sample_Data_v1_nfYzzsKg.clean.zip)
+
 It is advisable to first watch this [tutorial](https://www.rstudio.com/resources/webinars/a-gentle-introduction-to-tidy-statistics-in-r/) about using RStudio.
 
 There are some handy references of commands for [base-R](https://raw.githubusercontent.com/rstudio/cheatsheets/master/base-r.pdf), [dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-transformation.pdf), and [ggplot](https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-visualization.pdf).
@@ -34,6 +36,13 @@ We can then load this table into R for processing with the `read.table()` functi
 ```
 geotrace_tm_file = "~/git/envbiogeo-mgap/datasets/GEOTRACES_IDP2021_Seawater_Discrete_Sample_Data_v1_nfYzzsKg.clean.txt"
 geotrace_tm = read.table(geotrace_tm_file, head=TRUE, sep="\t")
+```
+
+**NOTE: if you are having difficulty finding the path to a file on your computer, in RStudio go to the "Import Dataset..." in the File menu, and choose "From Text (base)"** Find the file you are looking for, give it the name `geotrace_tm` (or any other relevant name), and it will import it and print the code to the console (as it appears below for my computer). Copy this and paste it into a script.
+
+```
+> geotrace_tm <- read.delim("~/git/envbiogeo-mgap/datasets/GEOTRACES_IDP2021_Seawater_Discrete_Sample_Data_v1_nfYzzsKg.clean.txt")
+>   View(geotrace_tm)
 ```
 
 Once it is read in, we can check basic things, like the dimensions of the table. The `dim()` function tells the number of rows and columns.

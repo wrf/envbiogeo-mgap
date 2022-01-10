@@ -4,7 +4,7 @@ information and code for course projects for the [biogeochemical cycles class](h
 The project will consist of:
 
 * 8-10 page report featuring primary analysis about a nutrient/element of choice (at least one, or combinations for rarer ones) from the GEOTRACES database
-* include an introduction, brief methods, results/description of observations, discussion, figures (1 page max) and references
+* include an introduction, brief methods, results/description of observations, discussion, figures (roughly 1 page of combined figures) and references
 * can be a global overview, or detailed about a location of interest; this can be determined after beginning to look at the data
 * short presentation (1-3 slides, 5 min + questions) for the final day of class
 
@@ -45,4 +45,10 @@ For the discussion about the nutrient or metal, consider trying to answer some o
 * do organisms use this substance, say for enzymes? which enzymes, and which biological processes? check [KEGG](https://www.kegg.jp/kegg/kegg2.html) or [Uniprot DB](https://www.uniprot.org/)
 * are there natural sources, say from volcanoes or rivers? how much does this contribute?
 * are there human sources, say from industrial processes? which ones? what do they make? is that region well known for that industry? does this industry cause other problems?
+
+
+
+
+# Other links #
+* video of carbon cycle https://www.youtube.com/watch?v=dwVsD9CiokY
 
