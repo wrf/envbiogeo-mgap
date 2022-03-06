@@ -253,8 +253,7 @@ Suppose we now want to highlight those red points on a map, to know where they o
 We can do this by creating a new variable that will become a new column. This starts with the values of the longitude. Values from 0-180 should stay the same, but values greater than 180 need to be adjusted by 360 degrees. For instance, a longitude of 359 will be slightly west of London, so should end up as -1, thus we need to subtract 360 from all values greater than 180.
 
 ```
-longitude_adj = geotrace_tm$Longitude_degrees_east
-longitude_adj[longitude_adj > 180] = longitude_adj[longitude_adj > 180] - 360
+longitude_adj = ifelse(geodat$Longitude_degrees_east > 180, geodat$Longitude_degrees_east - 360, geodat$Longitude_degrees_east)
 tm_short = cbind( select(geotrace_tm, Al_D_CONC_BOTTLE_nmol.kg , DEPTH_m , Latitude_degrees_north ), longitude_adj )
 ```
 
