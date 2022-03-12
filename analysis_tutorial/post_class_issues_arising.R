@@ -88,11 +88,24 @@ ggplot(worldpolygons) +
   geom_point(data=filter(al_short_for_map, Al_D_CONC_BOTTLE_nmol.kg < 50 & DEPTH_m > 1000), aes( x=longitude_corrected, y=Latitude_degrees_north ), color="#000064", alpha=0.6, size=3, shape=19 )
 
 
+############
+# 2022-03-12
 
-
-
-
-
+# to make a map with pacific in the center
+# copy this block more or less exactly
+pac_worldpolygons = fortify(worldpolygons)
+pac_worldpolygons$long = pac_worldpolygons$long + 360
+pac_worldpolygons$group <- pac_worldpolygons$group + max(pac_worldpolygons$group) + 1
+copyjump_map <- rbind(worldpolygons, pac_worldpolygons)
+# make sure to use the geodat raw longitude, not the corrected longitude values
+ggplot(copyjump_map) +
+  coord_cartesian(expand = c(0,0), xlim = c(0,360), ylim = c(-90,90) ) +
+  labs(x=NULL, y=NULL) +
+  theme_bw() +
+  geom_polygon( aes(x=long, y = lat, group = group), fill="#cdcdcd", colour="#ffffff") +
+  geom_point(data=filter(geodat, DEPTH_m > 1000), aes( x=Longitude_degrees_east, y=Latitude_degrees_north ), color="#aaeeaa", alpha=0.2, size=4, shape=6 ) +
+  geom_point(data=filter(geodat, Al_D_CONC_BOTTLE_nmol.kg >= 50 & DEPTH_m > 1000), aes( x=Longitude_degrees_east, y=Latitude_degrees_north ), color="#640000", alpha=0.6, size=3, shape=19 ) + 
+  geom_point(data=filter(geodat, Al_D_CONC_BOTTLE_nmol.kg < 50 & DEPTH_m > 1000), aes( x=Longitude_degrees_east, y=Latitude_degrees_north ), color="#000064", alpha=0.6, size=3, shape=19 )
 
 
 
