@@ -1,14 +1,13 @@
 # Global Cycles 2021 #
-information and code for course projects for the [biogeochemical cycles class](https://www.mgap.geo.uni-muenchen.de/index.html) in 2021
+information and code for course projects for the [biogeochemical cycles class](https://www.mgap.geo.uni-muenchen.de/index.html) at the [LMU](https://www.lmu.de/de/index.html) for 2021
 
 The project will consist of:
 
-* 8-10 page report featuring primary analysis about a nutrient/element of choice (at least one, or combinations for rarer ones) from the GEOTRACES database
+* 8-10 page report featuring primary analysis about a nutrient/element of choice (at least one, or combinations for rarer ones) from the [GEOTRACES database](https://www.geotraces.org/)
 * can be either journal article format (Intro-Methods-Results-Discussion) or report format (Intro-Sections-Conclusion)
 * for journal article format, include an abstract, introduction, brief methods, results/description of observations, discussion, figures (roughly 1-2 pages of combined figures) and references
 * for report format, include an abstract, introduction, then 2-4 relevant sections with headings, and conclusions, figures (roughly 1-2 pages of combined figures) and references
 * can be a global overview, or detailed about a location of interest; this can be determined after beginning to look at the data
-
 * for figures, number the figures, include captions after the figure, and refer to them in the text by number ("As shown in Figure 1...")
 * embed all of the images/figures into the document, around the context that you are talking about them (as in, do not put them all at the end)
 * export it as a PDF from word/whatever program you are typing in and send it as a single file with your name in the filename
@@ -66,6 +65,6 @@ For the discussion about the nutrient or metal, consider trying to answer some o
 
 
 
-# Other links #
+# Other links for the class #
 * video of carbon cycle https://www.youtube.com/watch?v=dwVsD9CiokY
 
